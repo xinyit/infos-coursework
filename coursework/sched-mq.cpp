@@ -38,6 +38,11 @@ public:
     void add_to_runqueue(SchedulingEntity& entity) override
     {
         // TODO: Implement me!
+        /* cfs implementation
+        UniqueIRQLock l;
+		runqueue.enqueue(&entity);
+        */
+
     }
 
     /**
@@ -47,6 +52,10 @@ public:
     void remove_from_runqueue(SchedulingEntity& entity) override
     {
         // TODO: Implement me!
+        /*cfs implementation
+        UniqueIRQLock l;
+		runqueue.remove(&entity);
+        */
     }
 
     /**
@@ -57,6 +66,21 @@ public:
     SchedulingEntity *pick_next_entity() override
     {
         // TODO: Implement me!
+        /* cfs implementation
+        if (runqueue.count() == 0) return NULL;
+		if (runqueue.count() == 1) return runqueue.first();
+		
+		SchedulingEntity::EntityRuntime min_runtime = 0;
+		SchedulingEntity *min_runtime_entity = NULL;
+		for (const auto& entity : runqueue) {
+			if (min_runtime_entity == NULL || entity->cpu_runtime() < min_runtime) {
+				min_runtime_entity = entity;
+				min_runtime = entity->cpu_runtime();
+			}
+		}
+				
+		return min_runtime_entity;
+        */
     }
 };
 
