@@ -1,6 +1,5 @@
 /*
- * The Priority Task Scheduler
- * SKELETON IMPLEMENTATION TO BE FILLED IN FOR TASK 1
+ * The Advanced Priority Task Scheduler
  */
 
 #include <infos/kernel/sched.h>
@@ -16,13 +15,13 @@ using namespace infos::util;
 /**
  * A Multiple Queue priority scheduling algorithm
  */
-class MultipleQueuePriorityScheduler : public SchedulingAlgorithm
+class AdvancedMultipleQueuePriorityScheduler : public SchedulingAlgorithm
 {
 public:
     /**
      * Returns the friendly name of the algorithm, for debugging and selection purposes.
      */
-    const char* name() const override { return "mq"; }
+    const char* name() const override { return "adv"; }
 
     /**
      * Called during scheduler initialisation.
@@ -105,16 +104,16 @@ public:
         if(!realTimeQueue.count()==0) 
         {
             nextInQueue = realTimeQueue.first();
-            realTimeQueue.append(realTimeQueue.dequeue());
+            interactiveQueue.append(realTimeQueue.dequeue());
            
         } else if (!interactiveQueue.count()==0)
         {
             nextInQueue = interactiveQueue.first();
-            interactiveQueue.append(interactiveQueue.dequeue());
+            normalQueue.append(interactiveQueue.dequeue());
         } else if (!normalQueue.count()==0)
         {
             nextInQueue = normalQueue.first();
-            normalQueue.append(normalQueue.dequeue());
+            daemonQueue.append(normalQueue.dequeue());
         } else {
              nextInQueue = daemonQueue.first();
              daemonQueue.append(normalQueue.dequeue());
@@ -133,4 +132,4 @@ private:
 
 /* --- DO NOT CHANGE ANYTHING BELOW THIS LINE --- */
 
-RegisterScheduler(MultipleQueuePriorityScheduler);
+RegisterScheduler(AdvancedMultipleQueuePriorityScheduler);
