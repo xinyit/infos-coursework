@@ -98,10 +98,11 @@ public:
      */
     SchedulingEntity *pick_next_entity() override
     {
-        SchedulingEntity* nextInQueue;
         
         if (realTimeQueue.count()==0 && interactiveQueue.count()==0 && normalQueue.count()==0 && daemonQueue.count()==0) return NULL;
 
+        SchedulingEntity* nextInQueue = NULL;
+        
         if(!realTimeQueue.count()==0) 
         {
             nextInQueue = realTimeQueue.first();
